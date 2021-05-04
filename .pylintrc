@@ -2,5 +2,7 @@
 good-names=i,j,ex,pk
 
 [MESSAGES CONTROL]
-disable=broad-except
+disable=broad-except,
+    C0114,
+    C0115,
 

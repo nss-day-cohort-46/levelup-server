@@ -1,4 +1,3 @@
-from pydoc import describe
 from django.db import models
 
 
@@ -8,4 +7,3 @@ class Event(models.Model):
     start_date = models.DateTimeField()
     description = models.TextField()
     attendees = models.ManyToManyField("Gamer", through="EventGamer", related_name="attending")
-
