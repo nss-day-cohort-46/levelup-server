@@ -1,0 +1,13 @@
+[
+    {
+        "model": "levelupapi.event",
+        "pk": 1,
+        "fields":
+        {
+            "game": 1,
+            "organizer": 1,
+            "description": "BYOB",
+            "start_date": "2021-08-28T14:51:39.989Z"
+        }
+    }
+]
