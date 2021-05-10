@@ -15,11 +15,11 @@ class GameView(ViewSet):
         game = Game()
         game.title = request.data['title']
         game.maker = request.data['maker']
-        game.number_of_players = request.data['number_of_players']
-        game.skill_level = request.data['skill_level']
+        game.number_of_players = request.data['numberOfPlayers']
+        game.skill_level = request.data['skillLevel']
         game.gamer = gamer
 
-        game_type = GameType.objects.get(pk=request.data['game_type_id'])
+        game_type = GameType.objects.get(pk=request.data['gameTypeId'])
         # select *
         # from gametype
         # where id=request.data['game_type_id']

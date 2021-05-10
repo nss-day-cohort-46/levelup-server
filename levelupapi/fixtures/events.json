@@ -1,13 +1,45 @@
 [
     {
         "model": "levelupapi.event",
-        "pk": 1,
+        "pk": 4,
         "fields":
         {
             "game": 1,
             "organizer": 1,
             "description": "BYOB",
             "start_date": "2021-08-28T14:51:39.989Z"
+        }
+    },
+    {
+        "model": "levelupapi.event",
+        "pk": 1,
+        "fields": {
+            "organizer": 1,
+            "description": "Welcome To at lunch",
+            "game": 1,
+            "start_date": "2021-08-28T10:00:00.989Z"
+        }
+    },
+    {
+        "model": "levelupapi.event",
+        "pk": 2,
+        "fields": {
+            "organizer": 1,
+            "description": "Friday night Settlers and drinks",
+            "game": 2,
+            "start_date": "2021-08-28T10:00:00.989Z"
+
+        }
+    },
+    {
+        "model": "levelupapi.event",
+        "pk": 3,
+        "fields": {
+            "organizer": 1,
+            "description": "Vale of the Frost King campaign. All weekend.",
+            "game": 3,
+            "start_date": "2021-08-28T10:00:00.989Z"
+
         }
     }
 ]

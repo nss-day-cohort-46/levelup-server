@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from levelupapi.views.event import EventView
 from levelupapi.views.game import GameView
 from django.contrib import admin
 from django.urls import path, include
@@ -24,6 +25,7 @@ router = routers.DefaultRouter()
 # /gametypes?label=blue
 router.register(r'gametypes', GameTypeView, 'gametype')
 router.register(r'games', GameView, 'game')
+router.register(r'events', EventView, 'event')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

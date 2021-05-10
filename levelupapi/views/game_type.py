@@ -22,6 +22,10 @@ class GameTypeView(ViewSet):
 
     def list(self, request):
         game_types = GameType.objects.all()
+        # select * from GameTypes
+        # data = db.cursor.fetch_all()
+        # for row in data:
+        #   turn it into a GameTpe Object
 
         serializer = GameTypeSerializer(game_types, many=True, context={'request': request})
         return Response(serializer.data)
