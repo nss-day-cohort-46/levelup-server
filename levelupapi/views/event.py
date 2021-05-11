@@ -23,8 +23,7 @@ class EventView(ViewSet):
         gamer = Gamer.objects.get(user=request.auth.user)
 
         event = Event()
-        event.time = request.data["time"]
-        event.date = request.data["date"]
+        event.start_date = request.data["startDate"]
         event.description = request.data["description"]
         event.organizer = gamer
 
@@ -105,6 +104,31 @@ class EventView(ViewSet):
         serializer = EventSerializer(
             events, many=True, context={'request': request})
         return Response(serializer.data)
+    
+    @action(methods=['post', 'delete'], detail=True)
+    def signup(self, request, pk):
+        # /events/<event_id>/signup
+        gamer = Gamer.objects.get(user=request.auth.user)
+        try:
+            event = Event.objects.get(pk=pk)
+        except Event.DoesNotExist:
+            return Response(
+            {'message': 'Event does not exist.'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+        if request.method == "POST":
+            try:
+                res = event.attendees.add(gamer)
+                return Response({}, status=status.HTTP_201_CREATED)
+            except Exception as ex:
+                return Response({'message': ex.args[0]})
+        elif request.method == "DELETE":
+            try:
+                event.attendees.remove(gamer)
+                return Response({}, status=status.HTTP_204_NO_CONTENT)
+            except Exception as ex:
+                return Response({'message': ex.args[0]})
 
 
 class EventUserSerializer(serializers.ModelSerializer):
@@ -135,5 +159,5 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ('id', 'game', 'organizer',
-                  'description', 'start_date')
+                  'description', 'start_date', 'attendees')
         depth = 1
