@@ -47,7 +47,7 @@ class EventView(ViewSet):
             event = Event.objects.get(pk=pk)
             serializer = EventSerializer(event, context={'request': request})
             return Response(serializer.data)
-        except Exception:
+        except Exception as ex:
             return HttpResponseServerError(ex)
 
     def update(self, request, pk=None):
@@ -95,6 +95,11 @@ class EventView(ViewSet):
             Response -- JSON serialized list of events
         """
         events = Event.objects.all()
+        gamer = Gamer.objects.get(user=request.auth.user)
+
+        for event in events:
+            event.joined = gamer in event.attendees.all()
+            
 
         # Support filtering events by game
         game = self.request.query_params.get('gameId', None)
@@ -159,5 +164,5 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ('id', 'game', 'organizer',
-                  'description', 'start_date', 'attendees')
+                  'description', 'start_date', 'attendees', 'joined')
         depth = 1
