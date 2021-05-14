@@ -26,12 +26,13 @@ class EventView(ViewSet):
         event.start_date = request.data["startDate"]
         event.description = request.data["description"]
         event.organizer = gamer
-
+        
         game = Game.objects.get(pk=request.data["gameId"])
         event.game = game
 
         try:
             event.save()
+            event.attendees.set(request.data['gamers'])
             serializer = EventSerializer(event, context={'request': request})
             return Response(serializer.data)
         except ValidationError as ex:

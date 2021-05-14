@@ -54,12 +54,15 @@ class GameView(ViewSet):
     
     def update(self, request, pk):
         gamer = Gamer.objects.get(user=request.auth.user)
-
         game = Game.objects.get(pk=pk)
+
+        if gamer is not game.gamer:
+            return Response({}, status=status.HTTP_403_FORBIDDEN)
+        
         game.title = request.data['title']
         game.maker = request.data['maker']
-        game.number_of_players = request.data['number_of_players']
-        game.skill_level = request.data['skill_level']
+        game.number_of_players = request.data['numberOfPlayers']
+        game.skill_level = request.data['skillLevel']
         game.gamer = gamer
 
         game_type = GameType.objects.get(pk=request.data['gameTypeId'])
