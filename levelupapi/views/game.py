@@ -28,7 +28,7 @@ class GameView(ViewSet):
         try:
             game.save()
             serializer = GameSerializer(game, context={'request': request})
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         except ValidationError as ex:
             return Response({ 'reason': ex.message}, status=status.HTTP_400_BAD_REQUEST)
     
@@ -55,8 +55,8 @@ class GameView(ViewSet):
     def update(self, request, pk):
         gamer = Gamer.objects.get(user=request.auth.user)
         game = Game.objects.get(pk=pk)
-
-        if gamer is not game.gamer:
+        # import pdb; pdb.set_trace()
+        if gamer.id is not game.gamer.id:
             return Response({}, status=status.HTTP_403_FORBIDDEN)
         
         game.title = request.data['title']
